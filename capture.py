@@ -62,10 +62,10 @@ if not stdout_mode:
 def oneFrame(codecName, bytes, sec, usec, durUSec):
     try:
         if stdout_mode:
-            os.write(sys.stdout.fileno(), b'\0\0\0\1' + bytes)
+            os.write(sys.stdout.fileno(), bytes)
         else:
             print('frame for %s: %d bytes' % (codecName, len(bytes)))
-            fOut.write(b'\0\0\0\1' + bytes)
+            fOut.write(bytes)
     except OSError:
         print('OSError, shutting down', file=sys.stderr)
         os.kill(ourPid, signal.SIGTERM)  # FIXME very hacky way to talk to the parent thread
